@@ -91,8 +91,8 @@ const Form = () => {
           />
           <h3 className="select-text">Class</h3>
             <select className="dropdown" onChange={(event) => inputChangeHandler(event.target.value, InputType.classes)}>
-            <option value="select" >Select</option>
-              <option value="music" >Music</option>
+            <option value="select">Select</option>
+              <option value="music">Music</option>
               <option value="dancing">Dancing</option>
               <option value="painting">Painting</option>
             </select>
