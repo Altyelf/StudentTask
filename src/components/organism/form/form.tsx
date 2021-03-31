@@ -34,26 +34,38 @@ const Form = () => {
     setInputData({} as Data);
   };
 
-  const deleteHandler = (index: number) => {
-    const newData = [...studentData]
-    newData.splice(index, 1)
-    setInputData(newData)
-  };
+  const deleteStudent = (idx: number) => {
+    var dataWithoutStudent = studentData.filter(student => student !== studentData[idx])
+    setStudentData(dataWithoutStudent);
+  }
 
   const studentList = () => {
     return studentData.map(({ id, name, date, classes }, index) => {
       return (
-        <div key={index} className="table">
-          <div className="row">
-            <div className="col-xs-3">{id}</div>
-            <div className="col-xs-3">{name}</div>
-            <div className="col-xs-3">{date}</div>
-            <div className="col-xs-3">{classes}</div>
-            <div className="col-xs-3">
-              <button className="button-delete" type="submit" onClick={() => deleteHandler(index)}>Delete</button>
-            </div>
-          </div>
-        </div>
+        <table key={index} className="table">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Class</th>
+            <th></th>
+          </tr>
+          <tr>
+            <th>{id}</th>
+            <th>{name}</th>
+            <th>{date}</th>
+            <th>{classes}</th>
+            <th>
+              <button
+                className="button-delete"
+                type="submit"
+                onClick={() => deleteStudent(index)}
+              >
+                Delete
+              </button>
+            </th>
+          </tr>
+        </table>
       );
     });
   };
@@ -75,7 +87,7 @@ const Form = () => {
           <h3>Class</h3>
           <div className="dropdown-wrapper">
             <Dropdown className="dropdown">
-              <Dropdown.Toggle>Toggle</Dropdown.Toggle>
+              <Dropdown.Toggle>Select</Dropdown.Toggle>
               <Dropdown.List>
                 <Dropdown.Item>Music</Dropdown.Item>
                 <Dropdown.Item>Painting</Dropdown.Item>
@@ -84,7 +96,11 @@ const Form = () => {
             </Dropdown>
           </div>
         </form>
-        <button className="button-add" type="submit" onClick={() => submitHandler()}>
+        <button
+          className="button-add"
+          type="submit"
+          onClick={() => submitHandler()}
+        >
           Add
         </button>
       </div>

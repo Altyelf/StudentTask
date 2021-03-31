@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { DropdownContext } from "./dropdown-context";
-import "./dropdown.scss";
 import { Item } from "./parts/item";
 import { List } from "./parts/list";
 import { Toggle } from "./parts/toggle";
