@@ -18,21 +18,22 @@ const Form = () => {
   const [inputData, setInputData] = useState<Data>({} as Data);
 
   const inputChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    value: string,
     inputType: InputType
   ) => {
     if (inputType === InputType.studentName) {
-      setInputData({ ...inputData, name: e.target.value });
+      setInputData({ ...inputData, name: value });
     } else if (inputType === InputType.enrollmentDate) {
-      setInputData({ ...inputData, date: e.target.value });
+      setInputData({ ...inputData, date: value });
     } else if (inputType === InputType.classes) {
-      setInputData({ ...inputData, classes: e.target.value})
+      setInputData({ ...inputData, classes: value})
     }
   };
 
   const submitHandler = () => {
     setStudentData([...studentData, inputData]);
     setInputData({} as Data);
+    
   };
 
   const deleteStudent = (idx: number) => {
@@ -79,17 +80,17 @@ const Form = () => {
           <input
           className="input"
             type="text"
-            onChange={(e) => inputChangeHandler(e, InputType.studentName)}
+            onChange={(event) => inputChangeHandler(event.target.value, InputType.studentName)}
           />
           <h3 className="select-text">Enrollment date</h3>
           <input
            className="input"
             type="text"
-            onChange={(e) => inputChangeHandler(e, InputType.enrollmentDate)}
+            onChange={(event) => inputChangeHandler(event.target.value, InputType.enrollmentDate)}
           />
           <h3 className="select-text">Class</h3>
           <div className="dropdown-wrapper">
-            <select className="dropdown">
+            <select className="dropdown" onChange={(event) => inputChangeHandler(event.target.value, InputType.classes)}>
               <option value="music" >Music</option>
               <option value="dancing">Dancing</option>
               <option value="painting">Painting</option>
