@@ -26,7 +26,7 @@ const Form = () => {
     } else if (inputType === InputType.enrollmentDate) {
       setInputData({ ...inputData, date: value });
     } else if (inputType === InputType.classes) {
-      setInputData({ ...inputData, classes: value})
+      setInputData({ ...inputData, classes: value })
     }
   };
 
@@ -34,7 +34,7 @@ const Form = () => {
     setStudentData([...studentData, inputData]);
     setInputData({} as Data);
     let form = document.getElementById("form") as HTMLFormElement
-    form.reset();    
+    form.reset();
   };
 
   const deleteStudent = (idx: number) => {
@@ -79,23 +79,23 @@ const Form = () => {
         <form id="form">
           <h3 className="select-text">Student name</h3>
           <input
-          className="input"
+            className="input"
             type="text"
             onChange={(event) => inputChangeHandler(event.target.value, InputType.studentName)}
           />
           <h3 className="select-text">Enrollment date</h3>
           <input
-           className="input"
+            className="input"
             type="text"
             onChange={(event) => inputChangeHandler(event.target.value, InputType.enrollmentDate)}
           />
           <h3 className="select-text">Class</h3>
-            <select className="dropdown" onChange={(event) => inputChangeHandler(event.target.value, InputType.classes)}>
+          <select className="dropdown" onChange={(event) => inputChangeHandler(event.target.value, InputType.classes)}>
             <option value="select">Select</option>
-              <option value="music">Music</option>
-              <option value="dancing">Dancing</option>
-              <option value="painting">Painting</option>
-            </select>
+            <option value="music">Music</option>
+            <option value="dancing">Dancing</option>
+            <option value="painting">Painting</option>
+          </select>
         </form>
         <button
           className="button-add"
