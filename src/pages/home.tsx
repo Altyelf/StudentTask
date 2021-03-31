@@ -1,6 +1,6 @@
 import React from "react";
-import Form from "../components/organism/form/form";
-import { Heading } from "../components/organism/heading/heading";
+import Form from "../components/form/form";
+import { Heading } from "../components/heading/heading";
 import "./home.scss";
 
 const Home = () => {

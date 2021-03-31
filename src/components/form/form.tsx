@@ -33,11 +33,12 @@ const Form = () => {
   const submitHandler = () => {
     setStudentData([...studentData, inputData]);
     setInputData({} as Data);
-    
+    let form = document.getElementById("form") as HTMLFormElement
+    form.reset();    
   };
 
   const deleteStudent = (idx: number) => {
-    var dataWithoutStudent = studentData.filter(
+    let dataWithoutStudent = studentData.filter(
       (student) => student !== studentData[idx]
     );
     setStudentData(dataWithoutStudent);
@@ -75,7 +76,7 @@ const Form = () => {
   return (
     <div>
       <div className="from-wrapper">
-        <form>
+        <form id="form">
           <h3 className="select-text">Student name</h3>
           <input
           className="input"
@@ -89,13 +90,12 @@ const Form = () => {
             onChange={(event) => inputChangeHandler(event.target.value, InputType.enrollmentDate)}
           />
           <h3 className="select-text">Class</h3>
-          <div className="dropdown-wrapper">
             <select className="dropdown" onChange={(event) => inputChangeHandler(event.target.value, InputType.classes)}>
+            <option value="select" >Select</option>
               <option value="music" >Music</option>
               <option value="dancing">Dancing</option>
               <option value="painting">Painting</option>
             </select>
-          </div>
         </form>
         <button
           className="button-add"
