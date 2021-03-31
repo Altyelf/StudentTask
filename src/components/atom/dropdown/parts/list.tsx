@@ -1,8 +1,12 @@
 import React, { FC, useContext } from "react";
 import { DropdownContext } from "../dropdown-context";
 
-export const List: FC = ({ children }) => {
+interface ListProps {
+  className?: string;
+}
+
+export const List: FC<ListProps> = ({ children, className }) => {
   const { isShown } = useContext(DropdownContext);
 
-  return isShown ? <div>{children}</div> : null;
+  return isShown ? <div className={className}>{children}</div> : null;
 };

@@ -1,5 +1,9 @@
 import React, { FC } from "react";
 
-export const Item: FC = ({ children }) => {
-  return <div>{children}</div>;
+interface ItemProps {
+  className?: string;
+}
+
+export const Item: FC<ItemProps> = ({ children, className }) => {
+  return <div className={className}>{children}</div>;
 };

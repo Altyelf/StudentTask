@@ -5,15 +5,19 @@ import { Item } from "./parts/item";
 import { List } from "./parts/list";
 import { Toggle } from "./parts/toggle";
 
-export const Dropdown: FC & {
+interface DropdownProps {
+  className?: string;
+}
+
+export const Dropdown: FC<DropdownProps> & {
   Toggle: typeof Toggle;
   List: typeof List;
   Item: typeof Item;
-} = ({ children }) => {
+} = ({ children, className }) => {
   const [isShown, setIsShown] = useState(false);
 
   return (
-    <div>
+    <div className={className}>
       <DropdownContext.Provider value={{ isShown, setIsShown }}>
         {children}
       </DropdownContext.Provider>

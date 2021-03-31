@@ -9,30 +9,39 @@ type Data = {
   classes: string;
 };
 
+enum InputType {
+  studentName,
+  enrollmentDate,
+}
+
 const Form = () => {
   const [studentData, setStudentData] = useState<Data[]>([]);
-  const [inputData, setInputData] = useState("");
+  const [inputData, setInputData] = useState<Data>({} as Data);
 
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputData(e.target.value);
+  const inputChangeHandler = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    inputType: InputType
+  ) => {
+    if (inputType === InputType.studentName) {
+      setInputData({ ...inputData, name: e.target.value });
+    } else if (inputType === InputType.enrollmentDate) {
+      setInputData({ ...inputData, date: e.target.value });
+    }
   };
 
   const submitHandler = () => {
-    if (inputData === "") {
-      return;
-    } else {
-      setStudentData([
-        ...studentData,
-        {
-         inputData
-        },
-      ]);
-    }
-    setInputData("");
+    setStudentData([...studentData, inputData]);
+    setInputData({} as Data);
+  };
+
+  const deleteHandler = (index: number) => {
+    const newData = [...studentData]
+    newData.splice(index, 1)
+    setInputData(newData)
   };
 
   const studentList = () => {
-    return studentData.map(({id, name, date, classes }, index) => {
+    return studentData.map(({ id, name, date, classes }, index) => {
       return (
         <div key={index} className="table">
           <div className="row">
@@ -40,35 +49,48 @@ const Form = () => {
             <div className="col-xs-3">{name}</div>
             <div className="col-xs-3">{date}</div>
             <div className="col-xs-3">{classes}</div>
-            <div className="col-xs-3"><button>Delete</button></div>
+            <div className="col-xs-3">
+              <button className="button-delete" type="submit" onClick={() => deleteHandler(index)}>Delete</button>
+            </div>
           </div>
         </div>
-      )
-    }) 
-  }
+      );
+    });
+  };
 
   return (
     <div>
       <div className="from-wrapper">
         <form>
           <h3>Student name</h3>
-          <input type="text" onChange={(e) => inputChangeHandler(e)}/>
+          <input
+            type="text"
+            onChange={(e) => inputChangeHandler(e, InputType.studentName)}
+          />
           <h3>Enrollment date</h3>
-          <input type="text" onChange={(e) => inputChangeHandler(e)}/>
+          <input
+            type="text"
+            onChange={(e) => inputChangeHandler(e, InputType.enrollmentDate)}
+          />
           <h3>Class</h3>
-          <Dropdown>
-            <Dropdown.Toggle>Toggle</Dropdown.Toggle>
-            <Dropdown.List>
-              <Dropdown.Item>Music</Dropdown.Item>
-              <Dropdown.Item>Painting</Dropdown.Item>
-              <Dropdown.Item>Dancing</Dropdown.Item>
-            </Dropdown.List>
-          </Dropdown>
+          <div className="dropdown-wrapper">
+            <Dropdown className="dropdown">
+              <Dropdown.Toggle>Toggle</Dropdown.Toggle>
+              <Dropdown.List>
+                <Dropdown.Item>Music</Dropdown.Item>
+                <Dropdown.Item>Painting</Dropdown.Item>
+                <Dropdown.Item>Dancing</Dropdown.Item>
+              </Dropdown.List>
+            </Dropdown>
+          </div>
         </form>
-        <button type = "submit" onClick={submitHandler}>Add</button>
+        <button className="button-add" type="submit" onClick={() => submitHandler()}>
+          Add
+        </button>
       </div>
+      <div className="table-wrapper">{studentList()}</div>
     </div>
-  )
+  );
 };
 
 export default Form;
