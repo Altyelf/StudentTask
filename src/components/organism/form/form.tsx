@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Dropdown } from "../../atom/dropdown/dropdown";
 import "./form.scss";
 
 type Data = {
-  id: string;
   name: string;
   date: string;
   classes: string;
@@ -12,6 +10,7 @@ type Data = {
 enum InputType {
   studentName,
   enrollmentDate,
+  classes,
 }
 
 const Form = () => {
@@ -26,6 +25,8 @@ const Form = () => {
       setInputData({ ...inputData, name: e.target.value });
     } else if (inputType === InputType.enrollmentDate) {
       setInputData({ ...inputData, date: e.target.value });
+    } else if (inputType === InputType.classes) {
+      setInputData({ ...inputData, classes: e.target.value})
     }
   };
 
@@ -35,23 +36,23 @@ const Form = () => {
   };
 
   const deleteStudent = (idx: number) => {
-    var dataWithoutStudent = studentData.filter(student => student !== studentData[idx])
+    var dataWithoutStudent = studentData.filter(
+      (student) => student !== studentData[idx]
+    );
     setStudentData(dataWithoutStudent);
-  }
+  };
 
   const studentList = () => {
-    return studentData.map(({ id, name, date, classes }, index) => {
+    return studentData.map(({ name, date, classes }, index) => {
       return (
         <table key={index} className="table">
           <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Date</th>
             <th>Class</th>
-            <th></th>
+            <th>Action</th>
           </tr>
           <tr>
-            <th>{id}</th>
             <th>{name}</th>
             <th>{date}</th>
             <th>{classes}</th>
@@ -74,26 +75,25 @@ const Form = () => {
     <div>
       <div className="from-wrapper">
         <form>
-          <h3>Student name</h3>
+          <h3 className="select-text">Student name</h3>
           <input
+          className="input"
             type="text"
             onChange={(e) => inputChangeHandler(e, InputType.studentName)}
           />
-          <h3>Enrollment date</h3>
+          <h3 className="select-text">Enrollment date</h3>
           <input
+           className="input"
             type="text"
             onChange={(e) => inputChangeHandler(e, InputType.enrollmentDate)}
           />
-          <h3>Class</h3>
+          <h3 className="select-text">Class</h3>
           <div className="dropdown-wrapper">
-            <Dropdown className="dropdown">
-              <Dropdown.Toggle>Select</Dropdown.Toggle>
-              <Dropdown.List>
-                <Dropdown.Item>Music</Dropdown.Item>
-                <Dropdown.Item>Painting</Dropdown.Item>
-                <Dropdown.Item>Dancing</Dropdown.Item>
-              </Dropdown.List>
-            </Dropdown>
+            <select className="dropdown">
+              <option value="music" >Music</option>
+              <option value="dancing">Dancing</option>
+              <option value="painting">Painting</option>
+            </select>
           </div>
         </form>
         <button
