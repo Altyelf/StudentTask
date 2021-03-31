@@ -16,4 +16,4 @@ You will also see any lint errors in the console.
 ---
 ### `View the App at`
 
-(https://altyelf.github.io/StudentTask/)
+(https://tender-heisenberg-81ad31.netlify.app/)
