@@ -47,28 +47,20 @@ const Form = () => {
   const studentList = () => {
     return studentData.map(({ name, date, classes }, index) => {
       return (
-        <table key={index} className="table">
-          <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Class</th>
-            <th>Action</th>
-          </tr>
-          <tr>
-            <th>{name}</th>
-            <th>{date}</th>
-            <th>{classes}</th>
-            <th>
-              <button
-                className="button-delete"
-                type="submit"
-                onClick={() => deleteStudent(index)}
-              >
-                Delete
+        <tr>
+          <td>{name}</td>
+          <td>{date}</td>
+          <td>{classes}</td>
+          <td>
+            <button
+              className="button-delete"
+              type="submit"
+              onClick={() => deleteStudent(index)}
+            >
+              Delete
               </button>
-            </th>
-          </tr>
-        </table>
+          </td>
+        </tr>
       );
     });
   };
@@ -86,7 +78,7 @@ const Form = () => {
           <h3 className="select-text">Enrollment date</h3>
           <input
             className="input"
-            type="text"
+            type="date"
             onChange={(event) => inputChangeHandler(event.target.value, InputType.enrollmentDate)}
           />
           <h3 className="select-text">Class</h3>
@@ -105,7 +97,17 @@ const Form = () => {
           Add
         </button>
       </div>
-      <div className="table-wrapper">{studentList()}</div>
+      <div className="table-wrapper">
+        <table>
+          <tr>
+            <th>Student name</th>
+            <th>Starting date</th>
+            <th>Class</th>
+            <th>Action</th>
+          </tr>
+          {studentData.length ? studentList() : null}
+        </table>
+      </div>
     </div>
   );
 };
