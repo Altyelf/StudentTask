@@ -47,7 +47,7 @@ const Form = () => {
   const studentList = () => {
     return studentData.map(({ name, date, classes }, index) => {
       return (
-        <tr>
+        <tr key={index}>
           <td>{name}</td>
           <td>{date}</td>
           <td>{classes}</td>
@@ -105,7 +105,12 @@ const Form = () => {
             <th>Class</th>
             <th>Action</th>
           </tr>
-          {studentData.length ? studentList() : null}
+          {!studentData ? (
+            <tr>
+              <td colSpan={6}>Database is empty</td>
+            </tr>
+          ) : (
+             studentData.length > 0 ? studentList() : null )}
         </table>
       </div>
     </div>
