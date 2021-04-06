@@ -16,4 +16,4 @@ You will also see any lint errors in the console.
 ---
 ### `View the App at`
 
-(https://tender-heisenberg-81ad31.netlify.app/)
+(https://frosty-leakey-6f4c9f.netlify.app)
