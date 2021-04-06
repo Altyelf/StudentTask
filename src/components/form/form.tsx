@@ -15,7 +15,8 @@ enum InputType {
 
 const Form = () => {
   const [studentData, setStudentData] = useState<Data[]>([]);
-  const [inputData, setInputData] = useState<Data>({} as Data);
+  const [inputData, setInputData] = useState<Data>({ name: "", date: "", classes: "" });
+  const [errorData, setErrorData] = useState<string[]>([]);
 
   const inputChangeHandler = (
     value: string,
@@ -31,11 +32,32 @@ const Form = () => {
   };
 
   const submitHandler = () => {
+
+    let errorCount = validateInputs();
+    if (errorCount > 0) return;
+
     setStudentData([...studentData, inputData]);
-    setInputData({} as Data);
+    setInputData({ name: "", date: "", classes: "" });
     let form = document.getElementById("form") as HTMLFormElement
     form.reset();
   };
+
+  const validateInputs = () => {
+    let errors: string[] = [];
+    if (inputData.name.length === 0) {
+      errors.push("No name entered");
+    }
+
+    if (inputData.date.length === 0) {
+      errors.push("No date selected");
+    }
+
+    if (inputData.classes.length === 0) {
+      errors.push("No class selected");
+    }
+    setErrorData(errors)
+    return errors.length;
+  }
 
   const deleteStudent = (idx: number) => {
     let dataWithoutStudent = studentData.filter(
@@ -43,6 +65,10 @@ const Form = () => {
     );
     setStudentData(dataWithoutStudent);
   };
+
+  const fieldErrors = () => {
+    return errorData.map((error, idx) => { return (<p key={idx}>{error}</p>) })
+  }
 
   const studentList = () => {
     return studentData.map(({ name, date, classes }, index) => {
@@ -96,6 +122,9 @@ const Form = () => {
         >
           Add
         </button>
+        <div>
+          {fieldErrors()}
+        </div>
       </div>
       <div className="table-wrapper">
         <table>
@@ -105,12 +134,13 @@ const Form = () => {
             <th>Class</th>
             <th>Action</th>
           </tr>
-          {!studentData ? (
+          {studentData.length === 0 ?
             <tr>
               <td colSpan={6}>Database is empty</td>
             </tr>
-          ) : (
-             studentData.length > 0 ? studentList() : null )}
+            :
+            studentList()
+          }
         </table>
       </div>
     </div>
